@@ -9,7 +9,13 @@ const inputCheck = require('../../utils/inputCheck');
 router.get('/', (req, res) => {
   // find all products
   Product.findAll({
-    include: [Category,Tag]
+    include: [Category,{
+      model:Tag,
+      through:{
+        attributes:['id','product_id','tag_id']
+      }
+    }],
+    attributes: {exclude:['categoryId']}
   })
     .then(dbUserData => res.json(dbUserData))
     .catch(err => {
@@ -25,7 +31,13 @@ router.get('/:id', (req, res) => {
     where: {
       id: req.params.id
     },
-    include: [Category,Tag]
+    include: [Category,{
+      model:Tag,
+      through:{
+        attributes:['id','product_id','tag_id']
+      }
+    }],
+    attributes: {exclude:['categoryId']}
   })
     .then(dbUserData => res.json(dbUserData))
     .catch(err => {
