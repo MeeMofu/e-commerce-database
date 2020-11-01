@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const { Category, Product } = require('../../models');
+const inputCheck = require('../../utils/inputCheck');
+
 
 // The `/api/categories` endpoint
 
@@ -31,15 +33,62 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  // create a new category
+  const error = inputCheck(req.body, 'category_name');
+  if (error) {
+    res.status(400).json({ message: error });
+    return;
+  }
+  Category.create(req.body)
+    .then(dbUserData => res.json(dbUserData))
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 router.put('/:id', (req, res) => {
-  // update a category by its `id` value
+  const error = inputCheck(req.body, 'category_name');
+  if (error) {
+    res.status(400).json({ message: error });
+    return;
+  }
+  Category.update(
+      req.body,
+    {
+      where: {
+        id: req.params.id
+      }
+    })
+    .then(dbPostData => {
+      if (dbPostData[0]===0) {
+        res.status(404).json({ message: 'No category found with this id' });
+        return;
+      }
+      res.json({ message: 'Successfully edited category' });
+    } )
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 router.delete('/:id', (req, res) => {
-  // delete a category by its `id` value
+  Category.destroy({
+    where: {
+      id : req.params.id
+    }
+  })
+    .then(dbPostData => {
+      if (!dbPostData) {
+        res.status(404).json({ message: 'No category found with this id' });
+        return;
+      }
+      res.json({ message: 'Successfully deleted category' });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 module.exports = router;
