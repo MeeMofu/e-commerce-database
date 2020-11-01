@@ -35,7 +35,7 @@ With that, your program is ready to go
 
 ## Usage
 
-Please check out this [YouTube video](https://youtu.be/MkwdxCH3X0g) for a live demonstration of this program.
+Please check out this [YouTube video](https://www.youtube.com/watch?v=zQnwOFLpgJc) for a live demonstration of this program.
 
 First you must initialize your database by running the following code in MySQL terminal
 
