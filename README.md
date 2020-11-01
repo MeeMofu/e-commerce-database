@@ -13,30 +13,43 @@
 
 ## Description
 
-This is application is a database program for an online e-commerce
+This is application is a database program for an online e-commerce. All the interaction with the database can be achieved using request API. This include getting, adding, editing and deleting information on the database, such as products, tag and category.
+
+This application ulilized [express](https://www.npmjs.com/package/express) to create the API server, as well as [sequelize](https://www.npmjs.com/package/sequelize) to interact with SQL database. Currently the program is running on MySQL dialect.
 
 ## Installation
 
-To use this application, it's required to have node.js installed. Which can be found in their [website](https://nodejs.org/en/download/).
+To use this application, it's required to have [node.js](https://nodejs.org/en/download/) and [mySQL](https://www.mysql.com/downloads/) installed.
 
-Once you have cloned the files and had node.js installed, just run the install command in the terminal:
+Once you have cloned the files, run the install command in the terminal:
  
     npm install
 
+Next, you'll need to create a .env enviroment file in your root directory with the following information:
+
+    DB_NAME='ecommerce_db'
+    DB_USER='root'
+    DB_PW= <your MySQL password>
+
+With that, your program is ready to go
 
 ## Usage
 
 Please check out this [YouTube video](https://youtu.be/MkwdxCH3X0g) for a live demonstration of this program.
 
-To run the program, call the app.js file in the terminal like so
- 
-    node app.js
+First you must initialize your database by running the following code in MySQL terminal
 
-Then just follow the prompt to input the fields for your custom README. Your custom generated README can be found in 'dist' folder.
+    source db/schema.sql
+
+For the API end points as well as the fields required, please refer to the video for more infomation
 
 ## Tests
 
-The application has built-in test, powered by Jest. To test it, run the command
+The program has a built-in code to seed the database for your testing:
+
+    npm run seed
+
+After running the code, you should have a database to test, it's highly recommended to use [Insomnia Core](https://insomnia.rest/download/) to test the APIs
 
 ## License
 
